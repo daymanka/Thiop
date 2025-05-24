@@ -1,4 +1,3 @@
-import * as SecureStore from 'expo-secure-store';
 import { getAuthToken } from './authService';
 
 // Storage key for cart data
