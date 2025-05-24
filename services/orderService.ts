@@ -3,6 +3,7 @@ import * as SecureStore from 'expo-secure-store';
 import { getAuthToken } from './authService';
 import { clearCart } from './cartService';
 
+
 // Configuration for Odoo API
 const ODOO_ORDER_API_URL = 'https://your-odoo-instance.com/api/orders';
 const ORDERS_STORAGE_KEY = 'food_delivery_orders';
@@ -95,6 +96,7 @@ const addOrderToCache = async (order) => {
 export const getOrder = async (orderId) => {
   try {
     const authToken = await getAuthToken();
+    console.log(authToken);
     
     if (!authToken) {
       throw new Error('Authentication required to access order details');
