@@ -96,7 +96,7 @@ const addOrderToCache = async (order) => {
 export const getOrder = async (orderId) => {
   try {
     const authToken = await getAuthToken();
-    console.log("hello "  , authToken);
+    console.log("hello "  + authToken);
     
     if (!authToken) {
       throw new Error('Authentication required to access order details');
