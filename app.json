@@ -9,7 +9,8 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.usercly00.boltexponativewind"
     },
     "web": {
       "bundler": "metro",
@@ -24,6 +25,9 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "android": {
+      "package": "com.usercly00.boltexponativewind"
     }
   }
 }

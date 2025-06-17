@@ -1,4 +1,5 @@
 import { getAuthToken } from './authService';
+import * as SecureStore from 'expo-secure-store';
 
 // Storage key for cart data
 const CART_STORAGE_KEY = 'food_delivery_cart';

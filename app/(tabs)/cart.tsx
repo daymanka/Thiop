@@ -7,6 +7,8 @@ import { Minus, Plus, X, ArrowRight } from 'lucide-react-native';
 import { getCart, updateCartItem, removeCartItem, clearCart } from '@/services/cartService';
 import EmptyState from '@/components/common/EmptyState';
 
+
+
 export default function CartScreen() {
   const router = useRouter();
   const colorScheme = useColorScheme();
