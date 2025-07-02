@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Clock, CheckCircle, Truck, Package } from 'lucide-react-native';
+import { Clock, CircleCheck as CheckCircle, Truck, Package } from 'lucide-react-native';
 
 interface TrackingData {
   status: string;

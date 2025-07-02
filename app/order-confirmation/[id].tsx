@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useColorScheme } from 'react-native';
-import { CheckCircle, Clock, MapPin, Phone, MessageCircle, ArrowLeft } from 'lucide-react-native';
+import { CircleCheck as CheckCircle, Clock, MapPin, Phone, MessageCircle, ArrowLeft } from 'lucide-react-native';
 import { getOrder, trackOrder } from '@/services/orderService';
 import OrderTrackingCard from '@/components/order/OrderTrackingCard';
 import OrderItemsList from '@/components/order/OrderItemsList';
