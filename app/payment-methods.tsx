@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, ActivityIn
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useColorScheme } from 'react-native';
-import { ArrowLeft, CreditCard, Plus, Trash2, Edit3 } from 'lucide-react-native';
+import { ArrowLeft, CreditCard, Plus, Trash2, CreditCard as Edit3 } from 'lucide-react-native';
 
 interface PaymentMethod {
   id: string;
