@@ -78,7 +78,7 @@ export default function HomeScreen() {
       
       <LocationHeader />
       
-      {/* Demo Payment Button */}
+      {/* Demo Payment Button - Moved to top for better visibility */}
       <View style={styles.demoContainer}>
         <TouchableOpacity
           style={styles.demoButton}
@@ -139,27 +139,30 @@ const styles = StyleSheet.create({
   },
   demoContainer: {
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingVertical: 12,
+    backgroundColor: 'transparent',
   },
   demoButton: {
     backgroundColor: '#8B5CF6',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    borderRadius: 16,
+    shadowColor: '#8B5CF6',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
+    marginBottom: 8,
   },
   demoButtonText: {
     color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '700',
-    marginLeft: 8,
+    marginLeft: 10,
+    textAlign: 'center',
   },
   scrollView: {
     flex: 1,
