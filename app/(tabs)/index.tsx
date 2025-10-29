@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'react-native';
-import { MapPin, CreditCard } from 'lucide-react-native';
+import { MapPin } from 'lucide-react-native';
 import { fetchFeaturedItems, fetchCategories, fetchRestaurants } from '@/services/api';
 import CategoryList from '@/components/home/CategoryList';
 import FeaturedSection from '@/components/home/FeaturedSection';
@@ -78,19 +78,6 @@ export default function HomeScreen() {
       
       <LocationHeader />
       
-      {/* Demo Payment Button - Moved to top for better visibility */}
-      <View style={styles.demoContainer}>
-        <TouchableOpacity
-          style={styles.demoButton}
-          onPress={() => router.push('/payment-demo')}
-        >
-          <CreditCard size={20} color="#FFFFFF" />
-          <Text style={styles.demoButtonText}>
-            🎯 Voir la Simulation de Paiement
-          </Text>
-        </TouchableOpacity>
-      </View>
-      
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {/* Categories Section */}
         <CategoryList categories={categories} onSelectCategory={(id) => {
@@ -136,33 +123,6 @@ const styles = StyleSheet.create({
   centered: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  demoContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: 'transparent',
-  },
-  demoButton: {
-    backgroundColor: '#8B5CF6',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 16,
-    paddingHorizontal: 20,
-    borderRadius: 16,
-    shadowColor: '#8B5CF6',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
-    marginBottom: 8,
-  },
-  demoButtonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: '700',
-    marginLeft: 10,
-    textAlign: 'center',
   },
   scrollView: {
     flex: 1,
