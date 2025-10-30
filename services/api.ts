@@ -95,13 +95,23 @@ export const fetchCategories = async () => {
  */
 export const fetchFeaturedItems = async () => {
   try {
-    // TODO: Replace with actual Odoo API call
-    // const response = await odooClient.get('/food.item', {
-    //   params: { featured: true, limit: 10 }
-    // });
-    // return response.data;
-    
-    // Mock data for development
+    const products = await callOdoo('product.template', 'search_read', [[['available_in_pos', '=', true]]], {
+      fields: ['id', 'name', 'list_price', 'image_1920'],
+      limit: 10,
+    });
+
+    return products.map((product: any) => ({
+      id: String(product.id),
+      name: product.name,
+      restaurant: 'Restaurant',
+      image: product.image_1920
+        ? `data:image/png;base64,${product.image_1920}`
+        : 'https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=300',
+      price: product.list_price || 0,
+      rating: 4.5
+    }));
+  } catch (error) {
+    console.warn('Odoo not available for featured items, using mock data:', error);
     return [
       {
         id: '101',
@@ -144,9 +154,6 @@ export const fetchFeaturedItems = async () => {
         rating: 4.4
       }
     ];
-  } catch (error) {
-    console.error('Failed to fetch featured items:', error);
-    throw error;
   }
 };
 
