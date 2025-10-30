@@ -1,28 +1,43 @@
 import axios from 'axios';
 
-// Configuration for Odoo API connection
-const ODOO_API_BASE_URL = 'https://your-odoo-instance.com/api';
-const API_KEY = 'your-api-key'; // Replace with actual API key or use environment variable
+// ======== CONFIGURATION DE BASE ========
+const ODOO_JSONRPC_URL = process.env.EXPO_PUBLIC_ODOO_URL || 'http://localhost:8069/jsonrpc';
+const DB_NAME = process.env.EXPO_PUBLIC_ODOO_DB || 'odoo_db_thiop';
+const USER_ID = Number(process.env.EXPO_PUBLIC_ODOO_USER_ID) || 2;
+const API_KEY = process.env.EXPO_PUBLIC_ODOO_API_KEY;
 
-// Create axios instance with default config
+// ======== INSTANCE AXIOS ========
 const odooClient = axios.create({
-  baseURL: ODOO_API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${API_KEY}`
-  },
-  timeout: 10000
+  baseURL: ODOO_JSONRPC_URL,
+  headers: { 'Content-Type': 'application/json' },
+  timeout: 15000,
 });
 
-// Error handling middleware
-odooClient.interceptors.response.use(
-  response => response,
-  error => {
-    // Log errors or handle specific error codes
-    console.error('API Error:', error.response?.data || error.message);
-    return Promise.reject(error);
+// ======== MÉTHODE GÉNÉRIQUE POUR APPELER ODOO ========
+export const callOdoo = async (
+  model: string,
+  method: string,
+  args: any[] = [],
+  kwargs: Record<string, any> = {}
+) => {
+  const payload = {
+    jsonrpc: '2.0',
+    method: 'call',
+    params: {
+      service: 'object',
+      method: 'execute_kw',
+      args: [DB_NAME, USER_ID, API_KEY, model, method, args, kwargs],
+    },
+    id: Date.now(),
+  };
+
+  const { data } = await odooClient.post('', payload);
+  if (data?.error) {
+    console.error('Odoo Error:', data.error);
+    throw new Error(data.error.data?.message || 'Erreur côté Odoo');
   }
-);
+  return data.result;
+};
 
 // ========== Category API ==========
 
@@ -31,48 +46,9 @@ odooClient.interceptors.response.use(
  * @returns {Promise<Array>} List of food categories
  */
 export const fetchCategories = async () => {
-  try {
-    // TODO: Replace with actual Odoo API call
-    // const response = await odooClient.get('/food.category');
-    // return response.data;
-    
-    // Mock data for development
-    return [
-      {
-        id: '1',
-        name: 'Pizza',
-        image: 'https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=300'
-      },
-      {
-        id: '2',
-        name: 'Burgers',
-        image: 'https://images.pexels.com/photos/1639565/pexels-photo-1639565.jpeg?auto=compress&cs=tinysrgb&w=300'
-      },
-      {
-        id: '3',
-        name: 'Sushi',
-        image: 'https://images.pexels.com/photos/2098085/pexels-photo-2098085.jpeg?auto=compress&cs=tinysrgb&w=300'
-      },
-      {
-        id: '4',
-        name: 'Pasta',
-        image: 'https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg?auto=compress&cs=tinysrgb&w=300'
-      },
-      {
-        id: '5',
-        name: 'Salads',
-        image: 'https://images.pexels.com/photos/1211887/pexels-photo-1211887.jpeg?auto=compress&cs=tinysrgb&w=300'
-      },
-      {
-        id: '6',
-        name: 'Desserts',
-        image: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=300'
-      }
-    ];
-  } catch (error) {
-    console.error('Failed to fetch categories:', error);
-    throw error;
-  }
+  return await callOdoo('product.category', 'search_read', [[]], {
+    fields: ['id', 'name', 'parent_id'],
+  });
 };
 
 // ========== Featured Items API ==========
