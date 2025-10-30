@@ -21,25 +21,25 @@ export default function HomeScreen() {
   const [restaurants, setRestaurants] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    // Fetch data from Odoo backend
-    const loadInitialData = async () => {
-      try {
-        const categoriesData = await fetchCategories();
-        const featuredData = await fetchFeaturedItems();
-        const restaurantsData = await fetchRestaurants();
-        
-        setCategories(categoriesData);
-        setFeaturedItems(featuredData);
-        setRestaurants(restaurantsData);
-        setLoading(false);
-      } catch (err) {
-        console.error('Error loading data:', err);
-        setError('Failed to load data. Please try again.');
-        setLoading(false);
-      }
-    };
+  // Fetch data from Odoo backend
+  const loadInitialData = async () => {
+    try {
+      const categoriesData = await fetchCategories();
+      const featuredData = await fetchFeaturedItems();
+      const restaurantsData = await fetchRestaurants();
 
+      setCategories(categoriesData);
+      setFeaturedItems(featuredData);
+      setRestaurants(restaurantsData);
+      setLoading(false);
+    } catch (err) {
+      console.error('Error loading data:', err);
+      setError('Failed to load data. Please try again.');
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     loadInitialData();
   }, []);
 

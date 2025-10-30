@@ -46,9 +46,45 @@ export const callOdoo = async (
  * @returns {Promise<Array>} List of food categories
  */
 export const fetchCategories = async () => {
-  return await callOdoo('product.category', 'search_read', [[]], {
-    fields: ['id', 'name', 'parent_id'],
-  });
+  try {
+    return await callOdoo('product.category', 'search_read', [[]], {
+      fields: ['id', 'name', 'parent_id'],
+    });
+  } catch (error) {
+    console.warn('Odoo not available, using mock data:', error);
+    return [
+      {
+        id: '1',
+        name: 'Pizza',
+        image: 'https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=300'
+      },
+      {
+        id: '2',
+        name: 'Burgers',
+        image: 'https://images.pexels.com/photos/1639565/pexels-photo-1639565.jpeg?auto=compress&cs=tinysrgb&w=300'
+      },
+      {
+        id: '3',
+        name: 'Sushi',
+        image: 'https://images.pexels.com/photos/2098085/pexels-photo-2098085.jpeg?auto=compress&cs=tinysrgb&w=300'
+      },
+      {
+        id: '4',
+        name: 'Pasta',
+        image: 'https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg?auto=compress&cs=tinysrgb&w=300'
+      },
+      {
+        id: '5',
+        name: 'Salads',
+        image: 'https://images.pexels.com/photos/1211887/pexels-photo-1211887.jpeg?auto=compress&cs=tinysrgb&w=300'
+      },
+      {
+        id: '6',
+        name: 'Desserts',
+        image: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=300'
+      }
+    ];
+  }
 };
 
 // ========== Featured Items API ==========
